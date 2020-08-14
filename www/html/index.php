@@ -93,17 +93,22 @@
         </form>
     </div>
     <div id="contacts-div">
-        <?php if ($result && $stat->rowCount() > 0) { ?>
-        <?php foreach ($result as $contact) { ?>
+<?php 
+    if ($result && $stat->rowCount() > 0) {
+        usort($result, 'cmp_contact');
+        foreach ($result as $contact) {
+?>
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title"><?php echo escape(ucwords(strtolower($contact["firstname"] . " " . $contact["lastname"]))); ?></h4>
                     <p class="card-text">
-                        <?php if ($contact['phone']) {
+<?php 
+                        if ($contact['phone']) {
                             echo escape($contact['phone']);
                         } else {
                             echo escape($contact['email']);
-                        } ?>
+                        }
+?>
                     </p>
                     <div class="options">
                         <a href="edit.php?id=<?php echo escape($contact['id']); ?>" class="edit-contact">Edit</a>
@@ -112,13 +117,17 @@
                 </div>
                 <span class="contact-del"></span>
             </div>
-        <?php }?>
-        <?php } else { ?>
+<?php
+        }
+    } else {
+?>
         <div class="d-flex flex-column align-items-center">
             <img src="assets/lupa.png"  alt="" class="image-fuild" styles="max-width=100px; margin: auto 0;"> <br>
             <p>Nothing found</p>
         </div>
-        <?php } ?>
+<?php
+    }
+?>
     </div>
     <div class="footer mt-4">
         <a class="w-100" href="add.php"><button class="btn btn-primary w-100">Add Contact</button></a>

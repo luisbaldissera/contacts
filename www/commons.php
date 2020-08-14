@@ -8,6 +8,10 @@ function pad_percent(&$item, $key) {
     $item = '\'%' . $item . '%\'';
 }
 
+function cmp_contact($a, $b) {
+    return strcmp($a['firstname'], $b['firstname']);
+}
+
 session_start();
 
 if (empty($_SESSION['csrf'])) {

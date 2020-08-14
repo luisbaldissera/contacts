@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+    db:
+        container_name: db
+        build: ./db
+        ports:
+            - '8001:3306'
+        environment: 
+            MYSQL_ROOT_PASSWORD: secret
+    web:
+        container_name: web
+        build: ./www
+        depends_on:
+            - db
+        ports:
+            - '8000:80'
+        volumes:
+            - ./www:/var/www/
+        environment: 
+            MYSQL_HOST: db
+            MYSQL_USERNAME: app
+            MYSQL_PASSWORD: app
+            MYSQL_DBNAME: app
