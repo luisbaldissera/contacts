@@ -1,11 +1,14 @@
 version: '3'
 
+volumes:
+    contacts-data:
+
 services:
     db:
         container_name: db
         build: ./db
-        ports:
-            - '8001:3306'
+        volumes:
+            - contacts-data:/var/lib/mysql
         environment: 
             MYSQL_ROOT_PASSWORD: secret
     web:
